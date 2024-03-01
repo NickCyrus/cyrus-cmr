@@ -28,6 +28,7 @@ class UsersController extends Controller
                     'owner' => $user->owner,
                     'photo' => $user->photo_path ? URL::route('image', ['path' => $user->photo_path, 'w' => 40, 'h' => 40, 'fit' => 'crop']) : null,
                     'deleted_at' => $user->deleted_at,
+                    'permission' => ['Configuración','Contactos','Lo Que sea']
                 ]),
         ]);
     }

@@ -671,6 +671,10 @@ input:focus, select:focus, textarea:focus, button:focus, div:focus, a:focus, inp
   }
 }
 
+.stroke{
+  stroke:black;
+}
+
 .form-label {
   margin-bottom: 0.5rem;
   display: block;

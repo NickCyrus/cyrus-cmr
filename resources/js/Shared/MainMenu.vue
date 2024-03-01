@@ -24,6 +24,15 @@
         <div :class="isUrl('reports') ? 'text-white' : 'text-indigo-300 group-hover:text-white'">Reports</div>
       </Link>
     </div>
+
+    <div class="mb-4">
+      <Link class="group flex items-center py-3" href="/icons">
+        <icon name="printer" class="mr-2 w-4 h-4" :class="isUrl('icons') ? 'fill-white' : 'fill-indigo-400 group-hover:fill-white'" />
+        <div :class="isUrl('icons') ? 'text-white' : 'text-indigo-300 group-hover:text-white'">Iconos</div>
+      </Link>
+    </div>
+
+
   </div>
 </template>
 
@@ -36,6 +45,11 @@ export default {
     Icon,
     Link,
   },
+  data(){
+      return{
+          user: null,
+      }
+  },
   methods: {
     isUrl(...urls) {
       let currentUrl = this.$page.url.substr(1)
@@ -45,5 +59,8 @@ export default {
       return urls.filter((url) => currentUrl.startsWith(url)).length
     },
   },
+  created() {
+      this.user = this.$page.props.auth.user;
+  }
 }
 </script>

@@ -1,0 +1,8 @@
+
+<svg  xmlns="http://www.w3.org/2000/svg"   viewBox="0 0 64 64" >
+<g>
+	<polyline fill="none"  stroke-width="2" stroke-miterlimit="10" points="63,37 1,37 1,18 	"/>
+</g>
+<polyline fill="none"  stroke-width="2" stroke-linejoin="bevel" stroke-miterlimit="10" points="54,46 63,37 
+	54,28 "/>
+</svg>
