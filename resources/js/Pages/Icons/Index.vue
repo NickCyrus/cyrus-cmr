@@ -9,6 +9,11 @@
         </div>
         <div class="flex flex-wrap">
 
+            <div class="w-24 mb-3">
+              <a class="cursor-pointer block p-3 hover:bg-orange-600" @click="copy('user')" title="user">
+                <icon name="user" class="m-auto w-10 h-10 stroke" alt="user"  />
+              </a>
+            </div>
             <div  v-for="item in list_icons" class="w-24 mb-3">
               <a class="cursor-pointer block p-3 hover:bg-orange-600" @click="copy(item.icon)" :title="item.icon">
                 <icon :name=item.icon class="m-auto w-10 h-10 stroke" :alt="item.icon"  />
@@ -22,7 +27,7 @@
   import Layout from '@/Shared/Layout'
   import Icon from '@/Shared/Icon'
   import axios from 'axios'
-  
+  // https://iconmonstr.com/collections/
   export default {
     components: {
       Head,

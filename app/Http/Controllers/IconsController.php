@@ -15,14 +15,17 @@ class IconsController extends Controller
            $html  = ''; 
            $icons = glob(public_path($this->path.'*.svg'));
            foreach($icons as $icon){
-                $list[] = ['icon'=>basename( $icon, '.svg'), 'name'=>$this->path.basename( $icon)];
-            //    $html .= $this->prepareComponent( public_path($this->path.basename( $icon)) , basename( $icon, '.svg'));
+                $nameBase =  str_replace(" ","-",basename( $icon, '.svg'));
+                $list[] = ['icon'=>$nameBase, 'name'=>$this->path.basename($icon)];
+                // $html .= $this->prepareComponent( public_path($this->path.basename( $icon)) , $nameBase );
            }
-           /*
+           
+           return $list;
+
            $file = fopen(public_path($this->path)."icon.txt", "w");
            fwrite($file, $html . PHP_EOL);
            fclose($file);
- */
+ 
            return $list;
           
     }
@@ -32,14 +35,7 @@ class IconsController extends Controller
         return  str_replace('<svg','<svg v-else-if="name === \''.$name.'\'"', $content);
     }
 
-    /*
-
-    $file = fopen("archivo.txt", "w");
-    fwrite($file, "Esto es una nueva linea de texto" . PHP_EOL);
-    fwrite($file, "Otra más" . PHP_EOL);
-    fclose($file);
-    */
-
+     
     public function index(){
        
         return Inertia::render('Icons/Index', ['list_icons'=>$this->loadIcons()]);

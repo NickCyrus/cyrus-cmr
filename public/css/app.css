@@ -673,6 +673,7 @@ input:focus, select:focus, textarea:focus, button:focus, div:focus, a:focus, inp
 
 .stroke{
   stroke:black;
+  fill : black;
 }
 
 .form-label {
