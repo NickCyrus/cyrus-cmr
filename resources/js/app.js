@@ -9,6 +9,7 @@ createInertiaApp({
   title: title => title ? `${title} - Ping CRM` : 'Ping CRM',
   setup({ el, App, props, plugin }) {
     createApp({ render: () => h(App, props) })
+      .mixin(require('./base'))
       .use(plugin)
       .mount(el)
   },

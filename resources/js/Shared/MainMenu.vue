@@ -1,37 +1,21 @@
 <template>
   <div>
-    <div class="mb-4">
-      <Link class="group flex items-center py-3" href="/">
-        <icon name="dashboard" class="mr-2 w-4 h-4" :class="isUrl('') ? 'fill-white' : 'fill-indigo-400 group-hover:fill-white'" />
-        <div :class="isUrl('') ? 'text-white' : 'text-indigo-300 group-hover:text-white'">Dashboard</div>
+    <div class="" v-for="(menu_item, m_index)  in user.modules" v-on="menu_item.submenu?{click: (e) => addActiveClass(e)}:{}">
+      <Link class="flex items-center py-2" :href="(menu_item.submenu) ? '#' : menu_item.slug">
+        <icon :name="menu_item.icon" class="w-8 h-8 mr-3" :class="isUrl(menu_item.slug) ? 'stroke-active active ' : 'stroke group-hover:w-4 '" />
+        <div :class="isUrl(menu_item.slug) ? 'text-white' : 'text-indigo-300 group-hover:text-white'">{{ menu_item.name }}</div>
       </Link>
-    </div>
-    <div class="mb-4">
-      <Link class="group flex items-center py-3" href="/organizations">
-        <icon name="office" class="mr-2 w-4 h-4" :class="isUrl('organizations') ? 'fill-white' : 'fill-indigo-400 group-hover:fill-white'" />
-        <div :class="isUrl('organizations') ? 'text-white' : 'text-indigo-300 group-hover:text-white'">Organizations</div>
-      </Link>
-    </div>
-    <div class="mb-4">
-      <Link class="group flex items-center py-3" href="/contacts">
-        <icon name="users" class="mr-2 w-4 h-4" :class="isUrl('contacts') ? 'fill-white' : 'fill-indigo-400 group-hover:fill-white'" />
-        <div :class="isUrl('contacts') ? 'text-white' : 'text-indigo-300 group-hover:text-white'">Contacts</div>
-      </Link>
-    </div>
-    <div class="mb-4">
-      <Link class="group flex items-center py-3" href="/reports">
-        <icon name="printer" class="mr-2 w-4 h-4" :class="isUrl('reports') ? 'fill-white' : 'fill-indigo-400 group-hover:fill-white'" />
-        <div :class="isUrl('reports') ? 'text-white' : 'text-indigo-300 group-hover:text-white'">Reports</div>
-      </Link>
-    </div>
 
-    <div class="mb-4">
-      <Link class="group flex items-center py-3" href="/icons">
-        <icon name="printer" class="mr-2 w-4 h-4" :class="isUrl('icons') ? 'fill-white' : 'fill-indigo-400 group-hover:fill-white'" />
-        <div :class="isUrl('icons') ? 'text-white' : 'text-indigo-300 group-hover:text-white'">Iconos</div>
-      </Link>
-    </div>
+        <div v-if="menu_item.submenu" class="sub-menu-items pl-4 mt-2 mb-5">
+            <Link class="flex items-center" v-for="(sub_menu_item, s_m_index) in menu_item.submenu" :key="s_m_index"
+                :class="this.isUrl(sub_menu_item.slug) ? 'stroke-active ' : 'stroke group-hover:w-4 '" :href="sub_menu_item.slug">
+                <icon :name="sub_menu_item.icon" class="w-4 h-4 mr-3 " />
+                <div class="text-white">{{ __(sub_menu_item.name) }}</div>
+            </Link>
+        </div>
+   </div>
 
+ 
 
   </div>
 </template>
@@ -47,7 +31,8 @@ export default {
   },
   data(){
       return{
-          user: null,
+          user : null,
+          menu : null
       }
   },
   methods: {
@@ -58,9 +43,16 @@ export default {
       }
       return urls.filter((url) => currentUrl.startsWith(url)).length
     },
+    addActiveClass(e){
+          e.currentTarget.classList.toggle('hover')
+      },
   },
   created() {
       this.user = this.$page.props.auth.user;
+      this.menu = this.user.modules;
+       
+
+       
   }
 }
 </script>

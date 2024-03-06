@@ -1,0 +1,17 @@
+.stroke-active{
+    stroke:#FFF;
+}
+
+.stroke{  stroke:#7886d7; }
+
+.fill{
+    fill : black;
+}
+
+.sub-menu-items{
+  display:none;
+}
+
+.hover .sub-menu-items{
+  display: block;
+}

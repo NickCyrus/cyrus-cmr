@@ -110,4 +110,17 @@ class User extends Authenticatable
             }
         });
     }
+
+    public function getModulesAttribute(){
+        return Module::orderBy('order','DESC')->get()
+        ->map(function($item){
+            return [
+                'name' => $item->name,
+                'icon' => $item->icon,
+                'slug' => $item->slug,
+                'submenu' =>[['slug'=>"users","name"=>"Users","icon"=>"user"]],
+            ];
+        });
+        // ->toArray();
+    }
 }

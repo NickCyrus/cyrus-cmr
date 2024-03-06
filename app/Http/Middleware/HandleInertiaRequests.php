@@ -49,10 +49,13 @@ class HandleInertiaRequests extends Middleware
                             'id' => $request->user()->account->id,
                             'name' => $request->user()->account->name,
                         ],
-                        'permission' => ['admin','config','nick']
+                        'modules' => $request->user()->modules,
                     ] : null,
+
+                    
                 ];
             },
+            'languages' => [],
             'flash' => function () use ($request) {
                 return [
                     'success' => $request->session()->get('success'),

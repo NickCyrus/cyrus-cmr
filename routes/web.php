@@ -5,6 +5,7 @@ use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\IconsController;
 use App\Http\Controllers\ImagesController;
+use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\OrganizationsController;
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\UsersController;
@@ -37,6 +38,10 @@ Route::delete('logout', [AuthenticatedSessionController::class, 'destroy'])
 // Dashboard
 
 Route::get('/', [DashboardController::class, 'index'])
+    ->name('dashboard')
+    ->middleware('auth');
+
+Route::get('/dashboard', [DashboardController::class, 'index'])
     ->name('dashboard')
     ->middleware('auth');
 
@@ -142,6 +147,12 @@ Route::get('/img/{path}', [ImagesController::class, 'show'])
     ->where('path', '.*')
     ->name('image');
 
+// Icons
 Route::get('icons', [IconsController::class, 'index'])
     ->name('icons')
     ->middleware('auth');
+
+// Modules
+Route::get('modulos', [ModuleController::class, 'index'])
+    ->name('modules')
+    ->middleware('auth');    

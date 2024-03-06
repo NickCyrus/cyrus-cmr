@@ -1,9 +1,0 @@
-
-<svg  xmlns="http://www.w3.org/2000/svg"   viewBox="0 0 64 64" >
-<rect x="1" y="1" fill="none"  stroke-width="2" stroke-linejoin="bevel" stroke-miterlimit="10" width="62" height="62"/>
-<rect x="1" y="1" fill="none"  stroke-width="2" stroke-linejoin="bevel" stroke-miterlimit="10" width="62" height="62"/>
-<g>
-	<polygon fill="none"  stroke-width="2" stroke-linejoin="bevel" stroke-miterlimit="10" points="17,36 32,18 
-		47,36 39,36 39.001,46 25,46 25,36 	"/>
-</g>
-</svg>
