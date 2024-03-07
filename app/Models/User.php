@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Activitylog\LogOptions;
@@ -112,15 +113,20 @@ class User extends Authenticatable
     }
 
     public function getModulesAttribute(){
-        return Module::orderBy('order','DESC')->get()
+        return Module::whereIn('id', RolModulePermission::where('rol_id', $this->rol_id )
+                                    ->IsTrue('view')
+                                    ->pluck('module_id')
+                              )
+                              ->whereNull('parent_id')
+        ->orderBy('order','DESC')->get()
         ->map(function($item){
             return [
                 'name' => $item->name,
                 'icon' => $item->icon,
                 'slug' => $item->slug,
-                'submenu' =>[['slug'=>"users","name"=>"Users","icon"=>"user"]],
+                'submenu' => $item->submenu,
             ];
         });
-        // ->toArray();
+         
     }
 }

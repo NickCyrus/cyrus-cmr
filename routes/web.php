@@ -155,4 +155,12 @@ Route::get('icons', [IconsController::class, 'index'])
 // Modules
 Route::get('modulos', [ModuleController::class, 'index'])
     ->name('modules')
-    ->middleware('auth');    
+    ->middleware('auth');   
+    
+Route::get('setting', [ModuleController::class, 'index'])
+    ->name('setting')
+    ->middleware('auth');  
+    
+Route::get('setting/smtp', [ModuleController::class, 'index'])
+    ->name('setting.smtp')
+    ->middleware('auth');

@@ -9,4 +9,8 @@ use Illuminate\Database\Eloquent\Builder;
 class Functions extends Model
 {
     use HasFactory;
+
+    public function scopeIsTrue(Builder $query , $field){
+        return $query->where( $field, 1);
+    }
 }

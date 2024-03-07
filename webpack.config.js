@@ -12,4 +12,8 @@ module.exports = {
   devServer: {
     allowedHosts: 'all',
   },
+  stats: {
+    children: false,
+  }
+  
 }

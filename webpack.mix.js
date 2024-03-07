@@ -23,6 +23,7 @@ mix
     // prettier-ignore
     cssImport(),
     cssNesting(),
+    require('tailwindcss/nesting'),
     require('tailwindcss'),
   ])
   .version()

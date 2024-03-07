@@ -1,21 +1,21 @@
 <template>
   <div>
     <div class="" v-for="(menu_item, m_index)  in user.modules" v-on="menu_item.submenu?{click: (e) => addActiveClass(e)}:{}">
-      <Link class="flex items-center py-2" :href="(menu_item.submenu) ? '#' : menu_item.slug">
+      <Link class="flex items-center py-2" :href="(menu_item.submenu.length) ? '#' : route(menu_item.slug)" :class="{'have-sub-menu': menu_item.submenu.length}">
         <icon :name="menu_item.icon" class="w-8 h-8 mr-3" :class="isUrl(menu_item.slug) ? 'stroke-active active ' : 'stroke group-hover:w-4 '" />
         <div :class="isUrl(menu_item.slug) ? 'text-white' : 'text-indigo-300 group-hover:text-white'">{{ menu_item.name }}</div>
       </Link>
 
-        <div v-if="menu_item.submenu" class="sub-menu-items pl-4 mt-2 mb-5">
+        <div v-if="menu_item.submenu.length" class="sub-menu-items pl-4 mt-2 mb-5">
             <Link class="flex items-center" v-for="(sub_menu_item, s_m_index) in menu_item.submenu" :key="s_m_index"
-                :class="this.isUrl(sub_menu_item.slug) ? 'stroke-active ' : 'stroke group-hover:w-4 '" :href="sub_menu_item.slug">
+                :class="this.isUrl(sub_menu_item.slug) ? 'stroke-active ' : 'stroke group-hover:w-4 '" :href="route(sub_menu_item.slug)">
                 <icon :name="sub_menu_item.icon" class="w-4 h-4 mr-3 " />
-                <div class="text-white">{{ __(sub_menu_item.name) }}</div>
+                <div class="text-white text-[12px]">{{ __(sub_menu_item.name) }}</div>
             </Link>
         </div>
    </div>
 
- 
+  
 
   </div>
 </template>

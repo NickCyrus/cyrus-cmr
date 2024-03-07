@@ -8,7 +8,7 @@ module.exports = {
     './resources/**/*.js',
     './resources/**/*.vue',
   ],
-  darkMode: false, // or 'media' or 'class'
+  media: false, // or 'media' or 'class'
   theme: {
     colors: {
       transparent: 'transparent',
@@ -19,7 +19,7 @@ module.exports = {
       orange: colors.orange,
       yellow: colors.yellow,
       green: colors.green,
-      gray: colors.blueGray,
+      gray: colors.slate,
       indigo: {
         100: '#e6e8ff',
         300: '#b2b7ff',

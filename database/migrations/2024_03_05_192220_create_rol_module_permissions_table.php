@@ -15,8 +15,8 @@ class CreateRolModulePermissionsTable extends Migration
     {
         Schema::create('rol_module_permissions', function (Blueprint $table) {
             $table->id();
-            $table->integer( 'rol_id' );
-            $table->integer( 'module_id' );
+            $table->integer('rol_id' );
+            $table->integer('module_id' );
             $table->boolean('view')->default(false);
             $table->boolean('create')->default(false);
             $table->boolean('edit')->default(false);
