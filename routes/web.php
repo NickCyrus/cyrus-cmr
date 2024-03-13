@@ -7,6 +7,8 @@ use App\Http\Controllers\IconsController;
 use App\Http\Controllers\ImagesController;
 use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\OrganizationsController;
+use App\Http\Controllers\PDFController;
+use App\Http\Controllers\QuickchartController;
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
@@ -164,3 +166,24 @@ Route::get('setting', [ModuleController::class, 'index'])
 Route::get('setting/smtp', [ModuleController::class, 'index'])
     ->name('setting.smtp')
     ->middleware('auth');
+
+Route::get('chart',function(){
+
+  
+    
+  $qc = new QuickchartController();
+  $qc->setConfig("{
+    type: 'pie',
+    data: {
+      labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+      datasets: [{
+        label: 'Users',
+        data: [50, 60, 70, 180]
+      }]
+    }
+  }");
+  $qc->setSize(500,500);
+  
+  return  PDFController::generateHtmlToPDF("<img src='".$qc->getShortUrl()."'/>");
+
+});
