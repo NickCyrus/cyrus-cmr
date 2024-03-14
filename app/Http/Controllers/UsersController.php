@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NewUserCreated;
+use App\Events\SendEmailInfoLoginUser;
+use App\Models\Rol;
 use App\Models\User;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
@@ -35,7 +38,7 @@ class UsersController extends Controller
 
     public function create()
     {
-        return Inertia::render('Users/Create');
+        return Inertia::render('Users/Create' , ['rols'=> Rol::get()->toArray()]);
     }
 
     public function store()
@@ -45,18 +48,20 @@ class UsersController extends Controller
             'last_name' => ['required', 'max:50'],
             'email' => ['required', 'max:50', 'email', Rule::unique('users')],
             'password' => ['nullable'],
-            'owner' => ['required', 'boolean'],
+            'rol_id' => ['required'],
             'photo' => ['nullable', 'image'],
         ]);
 
-        Auth::user()->account->users()->create([
+        $user = Auth::user()->account->users()->create([
             'first_name' => Request::get('first_name'),
             'last_name' => Request::get('last_name'),
             'email' => Request::get('email'),
             'password' => Request::get('password'),
-            'owner' => Request::get('owner'),
+            'rol_id' => Request::get('rol_id'),
             'photo_path' => Request::file('photo') ? Request::file('photo')->store('users') : null,
         ]);
+
+        // event(new NewUserCreated($user , Request::get('password')));
 
         return Redirect::route('users')->with('success', 'User created.');
     }
@@ -73,7 +78,9 @@ class UsersController extends Controller
                 'photo' => $user->photo_path ? URL::route('image', ['path' => $user->photo_path, 'w' => 60, 'h' => 60, 'fit' => 'crop']) : null,
                 'deleted_at' => $user->deleted_at,
             ],
+            'rols'=> Rol::get()->toArray(),
         ]);
+
     }
 
     public function update(User $user)

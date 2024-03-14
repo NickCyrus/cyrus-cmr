@@ -172,16 +172,17 @@ Route::get('chart',function(){
   
     
   $qc = new QuickchartController();
-  $qc->setConfig("{
-    type: 'pie',
-    data: {
-      labels: ['Q1', 'Q2', 'Q3', 'Q4'],
-      datasets: [{
-        label: 'Users',
-        data: [50, 60, 70, 180]
-      }]
-    }
-  }");
+  $qc->setConfig([
+                    'type'=> 'bar',
+                    'data'=> [
+                    'labels'=> ['Q1', 'Q2', 'Q3', 'Q4', 'Q5'],
+                    'datasets'=> [[
+                        'label'=> 'Users',
+                        'data'=> [50, 60, 70, 180]
+                    ]]
+                    ]
+                ]);
+
   $qc->setSize(500,500);
   
   return  PDFController::generateHtmlToPDF("<img src='".$qc->getShortUrl()."'/>");

@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 
 class QuickchartController extends Controller
 {
+
+  // https://quickchart.io/documentation/
+  
   public $protocol;
   public $host;
   public $port;
@@ -20,6 +23,7 @@ class QuickchartController extends Controller
   public $backgroundColor;
   public $apiKey;
   public $version;
+  public $type;
 
   const USER_AGENT = 'quickchart-php (1.0.0)';
 
@@ -35,6 +39,8 @@ class QuickchartController extends Controller
     $this->backgroundColor = isset($options['backgroundColor']) ? $options['backgroundColor'] : 'transparent';
     $this->apiKey = isset($options['apiKey']) ? $options['apiKey'] : null;
     $this->version = isset($options['version']) ? $options['version'] : null;
+    $this->type = isset($options['type']) ? $options['type'] : 'bar';
+    
   }
 
   function setConfig($chartjsConfig) {
@@ -79,6 +85,10 @@ class QuickchartController extends Controller
       return json_encode($this->config);
     }
     return $this->config;
+  }
+
+  function setType($type) {
+    $this->type = $type;
   }
 
   function getUrl() {

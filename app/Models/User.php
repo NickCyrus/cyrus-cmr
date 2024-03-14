@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\Mail\CreateUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -55,6 +57,24 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+
+    
+    protected static function boot(){
+
+        parent::boot();
+
+        // Cada nuevo registro
+        static::created(function($user){
+            Mail::to('info@diarioprogramador.com')->send(new CreateUser($user));
+        });
+        
+        // Cada actualización registro
+        static::updated(function($user){
+            Mail::to('info@diarioprogramador.com')->send(new CreateUser($user));
+        });
+ 
+    }
+    
     public function resolveRouteBinding($value, $field = null)
     {
         return $this->where($field ?? 'id', $value)->withTrashed()->firstOrFail();
